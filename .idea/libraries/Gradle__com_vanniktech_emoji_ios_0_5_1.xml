@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.vanniktech:emoji-ios-0.5.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/emoji-ios-0.5.1.aar/9900ea2c2ae4731d5e9276e12c8bdd2e/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/emoji-ios-0.5.1.aar/9900ea2c2ae4731d5e9276e12c8bdd2e/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vanniktech/emoji-ios/0.5.1/e8b8aa2d8dab43da2084c02ea679caf83c47dfde/emoji-ios-0.5.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

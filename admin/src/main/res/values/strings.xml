@@ -99,4 +99,5 @@
     <string name="title_activity_testimony">TestimonyActivity</string>
     <string name="upload">Upload</string>
     <string name="new_article">New Article</string>
+    <string name="title_activity_delete_article">DeleteArticleActivity</string>
 </resources>

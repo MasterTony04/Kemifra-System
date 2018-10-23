@@ -7,11 +7,13 @@ import android.widget.TextView;
 
 import com.fahamutech.adminapp.R;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ArtViewHolder extends RecyclerView.ViewHolder {
 
     private TextView title;
     private TextView description;
-    private ImageView image;
+    private CircleImageView image;
     private View view;
 
     public ArtViewHolder(View itemView) {

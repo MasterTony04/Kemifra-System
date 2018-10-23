@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.fahamutech.adminapp"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         multiDexEnabled true
@@ -28,42 +28,53 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //implementation project(':forum')
 
+    implementation project(':chat21')
+
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
-    implementation 'com.google.firebase:firebase-core:16.0.4'
-    implementation 'com.google.firebase:firebase-firestore:17.1.1'
-    implementation 'com.google.firebase:firebase-auth:16.0.4'
-    implementation 'com.google.android.gms:play-services-auth:16.0.0'
-    implementation 'com.google.firebase:firebase-messaging:17.3.3'
-    implementation 'com.google.firebase:firebase-storage:16.0.3'
-    implementation 'com.google.firebase:firebase-functions:16.1.1'
+    //chat21
+    //chat client
+    //implementation 'com.google.android.gms:play-services:12.0.1'
+    implementation 'com.vanniktech:emoji-ios:0.5.1'
+
+    //implementation 'com.google.firebase:firebase-core:16.0.4'
+    //implementation 'com.google.firebase:firebase-firestore:17.1.1'
+    //implementation 'com.google.firebase:firebase-auth:16.0.4'
+    implementation 'com.google.android.gms:play-services-auth:11.8.0'
+    //implementation 'com.google.firebase:firebase-storage:11.0.3'
+    //implementation 'com.google.firebase:firebase-messaging:11.0.3'
+    //implementation 'com.google.firebase:firebase-database:16.0.3'
 
     implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.google.firebase:firebase-messaging:11.8.0'
+    implementation 'com.google.firebase:firebase-core:11.8.0'
+    implementation 'com.google.firebase:firebase-auth:11.8.0'
+    implementation 'com.google.firebase:firebase-database:11.8.0'
+    implementation 'com.google.firebase:firebase-storage:11.8.0'
+    implementation 'com.google.firebase:firebase-firestore:11.8.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:cardview-v7:27.1.1'
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    //annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
     //runtime
-    implementation "android.arch.lifecycle:extensions:1.1.1"
+    //implementation "android.arch.lifecycle:extensions:1.1.1"
 
     //multidex
     implementation 'com.android.support:multidex:1.0.3'
-
-    //chat
-    // implementation 'com.github.shrikanth7698:ChatView:v0.1.2'
-    //image viewer
-    // implementation 'com.github.stfalcon:frescoimageviewer:0.5.0'
 
     //image picker
     //implementation 'com.github.esafirm.android-image-picker:imagepicker:x.y.z'
     implementation("com.github.esafirm.android-image-picker:imagepicker:1.13.1", {
         exclude group: 'com.github.bumptech.glide', module: 'glide'
     })
+
+    implementation 'com.github.esafirm.android-image-picker:imagepicker:1.13.1'
 
     //image viewer
     //implementation 'com.github.stfalcon:frescoimageviewer:0.5.0'
@@ -74,6 +85,18 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.5'
 
+
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '26.1.0'
+            }
+        }
+    }
+}

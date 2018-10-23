@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.fahamutech.adminapp.R;
 import com.fahamutech.adminapp.activities.ReadActivity;
 import com.fahamutech.adminapp.model.Article;
@@ -41,7 +40,7 @@ public class ArtAdapter extends RecyclerView.Adapter<ArtViewHolder> {
         holder.getDescription().setText(articles.get(position).getContent());
         Glide.with(context)
                 .load(articles.get(position).getImage())
-                .apply(new RequestOptions().circleCrop())
+                //.apply(new RequestOptions().circleCrop())
                 .into(holder.getImage());
         holder.getView().setOnClickListener(v -> {
             Intent intent = new Intent(context, ReadActivity.class);

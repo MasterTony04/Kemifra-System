@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/admin/admin.iml" filepath="$PROJECT_DIR$/admin/admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chat21/chat21.iml" filepath="$PROJECT_DIR$/chat21/chat21.iml" />
+    </modules>
+  </component>
+</project>

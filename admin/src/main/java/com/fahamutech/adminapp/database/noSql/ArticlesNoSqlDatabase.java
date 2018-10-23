@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.fahamutech.adminapp.adapter.ArtAdapter;
+import com.fahamutech.adminapp.database.DataBaseCallback;
 import com.fahamutech.adminapp.database.connector.ArticleDataSource;
-import com.fahamutech.adminapp.forum.database.DataBaseCallback;
 import com.fahamutech.adminapp.model.Article;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.Query;

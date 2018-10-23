@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.fahamutech.adminapp.forum.model.Doctor;
 import com.fahamutech.adminapp.model.Category;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
@@ -39,12 +38,12 @@ public class Session {
         return sharedPreferences.getString(PAY, PAY_D);
     }
 
-    public void saveUser(Doctor doctor) {
-        SharedPreferences.Editor edit = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String s = gson.toJson(doctor);
-        edit.putString(PATIENT, s).apply();
-    }
+//    public void saveUser(Doctor doctor) {
+//        SharedPreferences.Editor edit = sharedPreferences.edit();
+//        Gson gson = new Gson();
+//        String s = gson.toJson(doctor);
+//        edit.putString(PATIENT, s).apply();
+//    }
 
     //to be changed
     public void saveCategories(Object snapshots){
@@ -67,15 +66,15 @@ public class Session {
         }
     }
 
-    public Doctor getSavedUser() {
-        String string = sharedPreferences.getString(PATIENT, "");
-        if (string.isEmpty()) {
-            return null;
-        } else {
-            Gson gson = new Gson();
-            return gson.fromJson(string, Doctor.class);
-        }
-    }
+//    public Doctor getSavedUser() {
+//        String string = sharedPreferences.getString(PATIENT, "");
+//        if (string.isEmpty()) {
+//            return null;
+//        } else {
+//            Gson gson = new Gson();
+//            return gson.fromJson(string, Doctor.class);
+//        }
+//    }
 
     public void saveLastCategory(String category) {
         sharedPreferences.edit().putString(CAT, category).apply();

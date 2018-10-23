@@ -29,7 +29,6 @@ public class HomeTestimonyFragment extends Fragment {
         return initView(inflate, new HomeNoSqlDatabase(inflate.getContext()));
     }
 
-
     private View initView(View view, HomeDataSource homeDataSource) {
         recyclerView = view.findViewById(R.id.testimony_cat_recy);
         swipeRefreshLayout = view.findViewById(R.id.testimony_cat_swipe);

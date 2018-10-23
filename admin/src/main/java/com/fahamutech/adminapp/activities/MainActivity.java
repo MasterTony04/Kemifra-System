@@ -13,8 +13,7 @@ import android.view.MenuItem;
 
 import com.fahamutech.adminapp.R;
 import com.fahamutech.adminapp.adapter.HomePageFragmentAdapter;
-import com.fahamutech.adminapp.forum.ForumMainActivity;
-import com.fahamutech.adminapp.forum.SignUpActivity;
+import com.fahamutech.adminapp.chat21.MySplashActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -29,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser==null){
-           startActivity(new Intent(this, SignUpActivity.class));
+        if (currentUser == null) {
+            startActivity(new Intent(this, MySplashActivity.class));
         }
         super.onStart();
     }
@@ -48,15 +47,15 @@ public class MainActivity extends AppCompatActivity {
         //for testing
         fab.setOnClickListener(view -> {
             Snackbar.make(view, "Chat is opening", Snackbar.LENGTH_SHORT).show();
-            startActivity(new Intent(this, ForumMainActivity.class));
+            //startActivity(new Intent(this, MySplashActivity.class));
         });
     }
 
     @Override
     protected void onResume() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser==null){
-            startActivity(new Intent(this, SignUpActivity.class));
+        if (currentUser == null) {
+            startActivity(new Intent(this, MySplashActivity.class));
         }
         super.onResume();
     }
@@ -77,8 +76,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_new_category) {
             startActivity(new Intent(this, CategoryActivity.class));
             return true;
-        }else if (id==R.id.action_new_article){
-            startActivity(new Intent(this,NewArticleActivity.class));
+        } else if (id == R.id.action_new_article) {
+            startActivity(new Intent(this, NewArticleActivity.class));
+            return true;
+        }else if (id==R.id.action_delete_article){
+            startActivity(new Intent(this,DeleteArticleActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
