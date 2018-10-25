@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.fahamutech.adminapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.chat21.android.core.ChatManager;
 import org.chat21.android.core.authentication.ChatAuthentication;
@@ -118,20 +119,22 @@ public class ChatMainActivity extends AppCompatActivity {
 ////                        .storageBucket("doctor-fahamutech.appspot.com")
 //                        .build();
 
+        loggedUser.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        ///FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         ChatManager.start(this, "doctorChat", loggedUser);
-
-        ChatAuthentication.getInstance().createAuthListener(user -> {
-            if (user != null) {
-                Log.e("TAG**USER", "user is not logout");
-            } else Log.e("TAG**USER", "user is logout");
-        });
-
+//        ChatAuthentication.getInstance().createAuthListener(user -> {
+//            if (user != null) {
+//                Log.e("TAG**USER", "user is not logout");
+//            } else Log.e("TAG**USER", "user is logout");
+//        });
         ChatUI instance = ChatUI.getInstance();
         instance.setContext(this);
         instance.enableGroups(true);
-        instance.setOnAttachClickListener((OnAttachClickListener) object -> {
-            Log.e("Document attached", "TAGGG*****");
-        });
+//        instance.setOnAttachClickListener((OnAttachClickListener) object -> {
+//            Log.e("Document attached", "TAGGG*****");
+//        });
         instance.openConversationsListFragment(getSupportFragmentManager(), R.id.frame);
     }
 

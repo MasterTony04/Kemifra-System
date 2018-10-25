@@ -3,17 +3,18 @@ package com.fahamutech.adminapp.database.noSql;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
-import com.fahamutech.adminapp.activities.MainActivity;
 import com.fahamutech.adminapp.adapter.CatAdapter;
 import com.fahamutech.adminapp.adapter.TestimonyAdapter;
+import com.fahamutech.adminapp.database.DataBaseCallback;
 import com.fahamutech.adminapp.database.connector.HomeDataSource;
 import com.fahamutech.adminapp.model.Category;
+import com.fahamutech.adminapp.model.ITestimony;
 import com.fahamutech.adminapp.model.Testimony;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeNoSqlDatabase extends NoSqlDatabase implements HomeDataSource {
+
+    private List<Category> cat = new ArrayList<>();
 
     public HomeNoSqlDatabase(Context context) {
         super(context);
@@ -37,7 +40,7 @@ public class HomeNoSqlDatabase extends NoSqlDatabase implements HomeDataSource {
                         // MainActivity.categoryList = categories;
                         //new Session(context).saveCategories(categories);
                         CatAdapter catAdapter = new CatAdapter(categories, context);
-                        recyclerView.setLayoutManager(new GridLayoutManager(this.context, 2));
+                        recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
                         recyclerView.setAdapter(catAdapter);
                         swipeRefreshLayout.setRefreshing(false);
                         Log.e("TAG***", " done get categories");
@@ -48,21 +51,11 @@ public class HomeNoSqlDatabase extends NoSqlDatabase implements HomeDataSource {
                 });
     }
 
-    public void getAllCategory(Spinner spinner) {
+    public void getAllCategory(DataBaseCallback callbacks) {
+
         firestore.collection(NoSqlColl.CATEGORY.name())
                 .addSnapshotListener((QuerySnapshot snapshots, FirebaseFirestoreException e) -> {
-                    if (snapshots != null) {
-                        List<String> strings = new ArrayList<>();
-                        List<Category> cat = snapshots.toObjects(Category.class);
-                        for (Category a : cat) {
-                            strings.add(a.getName());
-                        }
-                        ArrayAdapter<String> adapter
-                                = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, strings);
-
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinner.setAdapter(adapter);
-                    }
+                    if (callbacks != null) callbacks.then(snapshots);
                 });
     }
 
@@ -82,6 +75,33 @@ public class HomeNoSqlDatabase extends NoSqlDatabase implements HomeDataSource {
                         Log.e("get testimony", "failed " + e.getLocalizedMessage());
                         swipeRefreshLayout.setRefreshing(false);
                     }
+                });
+    }
+
+    @Override
+    public void addTestimony(ITestimony testimony, DataBaseCallback... callbacks) {
+        DocumentReference testimony1 = firestore.collection("TESTIMONY").document();
+        testimony.setId(testimony1.getId());
+
+        testimony1.set(testimony)
+                .addOnSuccessListener(aVoid -> {
+                    if (callbacks[0] != null) callbacks[0].then("done");
+                })
+                .addOnFailureListener(e -> {
+                    if (callbacks[1] != null) callbacks[1].then("fail " + e.getLocalizedMessage());
+                });
+    }
+
+    @Override
+    public void deleteTestimony(String docId, DataBaseCallback... callbacks) {
+        firestore.collection("TESTIMONY")
+                .document(docId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    if (callbacks[0] != null) callbacks[0].then("done");
+                })
+                .addOnFailureListener(e -> {
+                    if (callbacks[1] != null) callbacks[1].then("fail " + e.getLocalizedMessage());
                 });
     }
 

@@ -10,7 +10,7 @@ public interface ArticleDataSource {
     void getAllById(String categoryId, RecyclerView recyclerView,
                     SwipeRefreshLayout swipeRefreshLayout);
 
-    void getAll(DataBaseCallback... callbacks);
+    Object getAll(DataBaseCallback... callbacks);
 
     void createArticle(Article article, DataBaseCallback... callbacks);
 

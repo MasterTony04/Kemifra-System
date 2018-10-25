@@ -282,8 +282,10 @@ public class ChatLoginActivity extends AppCompatActivity implements View.OnClick
                                                 }
                                             }
                                     );
-                                    Log.i(TAG, "ChatUI has been initialized with success");
+                                    Log.e(TAG, "ChatUI has been initialized with success");
                                     setResult(Activity.RESULT_OK);
+
+
                                     finish();
                                 }
 

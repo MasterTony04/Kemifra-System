@@ -56,7 +56,7 @@ public class CategoryContent extends AppCompatActivity {
         fab.setOnClickListener(view -> {
             Snackbar.make(view,
                     "Chat opening...", Snackbar.LENGTH_LONG).show();
-            startActivity(new Intent(this, MySplashActivity.class));
+            //startActivity(new Intent(this, MySplashActivity.class));
         });
     }
 

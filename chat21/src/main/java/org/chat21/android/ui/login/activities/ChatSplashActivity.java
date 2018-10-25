@@ -57,7 +57,7 @@ public abstract class ChatSplashActivity extends AppCompatActivity {
 
         TextView title = findViewById(R.id.title);
         title.setText(ChatUtils.getApplicationName(this));
-        //runDispatch();
+        runDispatch();
     }
 
     @Override
@@ -104,7 +104,9 @@ public abstract class ChatSplashActivity extends AppCompatActivity {
             if (extras != null) {
                 targetIntent.putExtras(extras);
             }
-            startActivityForResult(targetIntent, TARGET_REQUEST);
+            startActivity(targetIntent);
+            finish();
+            //startActivityForResult(targetIntent, TARGET_REQUEST);
         } else {
             Log.d(DEBUG_LOGIN, "ChatSplashActivity.runDispatch: user is not logged in. Goto  ChatLoginActivity");
             // Send user to login activity

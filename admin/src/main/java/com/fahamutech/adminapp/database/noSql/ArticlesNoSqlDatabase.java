@@ -12,7 +12,10 @@ import com.fahamutech.adminapp.database.DataBaseCallback;
 import com.fahamutech.adminapp.database.connector.ArticleDataSource;
 import com.fahamutech.adminapp.model.Article;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.List;
@@ -45,16 +48,11 @@ public class ArticlesNoSqlDatabase extends NoSqlDatabase implements ArticleDataS
     }
 
     @Override
-    public void getAll(DataBaseCallback... callbacks) {
-        firestore.collection(NoSqlColl.ARTICLES.name()).get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (queryDocumentSnapshots != null) {
-                        List<Article> articles = queryDocumentSnapshots.toObjects(Article.class);
-                        if (callbacks != null) callbacks[0].then(articles);
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    if (callbacks != null) callbacks[1].then("fail " + e.getLocalizedMessage());
+    public Object getAll(DataBaseCallback... callbacks) {
+        return firestore.collection(NoSqlColl.ARTICLES.name())
+                .addSnapshotListener((snapshots, e) -> {
+                    List<Article> articles = snapshots.toObjects(Article.class);
+                    if (callbacks != null) callbacks[0].then(articles);
                 });
     }
 
