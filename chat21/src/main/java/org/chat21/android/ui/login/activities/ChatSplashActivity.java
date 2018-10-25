@@ -111,7 +111,8 @@ public abstract class ChatSplashActivity extends AppCompatActivity {
             Log.d(DEBUG_LOGIN, "ChatSplashActivity.runDispatch: user is not logged in. Goto  ChatLoginActivity");
             // Send user to login activity
 //            startActivityForResult(getLoginIntent(), LOGIN_REQUEST);
-            startActivityForResult(new Intent(this, ChatLoginActivity.class), LOGIN_REQUEST);
+            startActivity(new Intent(this, ChatLoginActivity.class));
+            finish();
         }
     }
 }

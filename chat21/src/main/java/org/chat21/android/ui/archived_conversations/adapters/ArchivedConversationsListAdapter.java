@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.daimajia.swipe.SwipeLayout;
 import com.vanniktech.emoji.EmojiTextView;
 
@@ -25,10 +26,8 @@ import org.chat21.android.ui.adapters.AbstractRecyclerAdapter;
 import org.chat21.android.ui.archived_conversations.listeners.OnSwipeMenuReopenClickListener;
 import org.chat21.android.ui.conversations.listeners.OnConversationClickListener;
 import org.chat21.android.ui.conversations.listeners.OnConversationLongClickListener;
-import org.chat21.android.ui.conversations.listeners.OnSwipeMenuUnreadClickListener;
 import org.chat21.android.utils.StringUtils;
 import org.chat21.android.utils.TimeUtils;
-import org.chat21.android.utils.image.CropCircleTransformation;
 
 import java.util.List;
 
@@ -122,8 +121,8 @@ public class ArchivedConversationsListAdapter extends AbstractRecyclerAdapter<Co
             // show the contact picture
             Glide.with(holder.itemView.getContext())
                     .load(picture)
-                    .placeholder(R.drawable.ic_person_avatar)
-                    .bitmapTransform(new CropCircleTransformation(holder.itemView.getContext()))
+                    .apply(new RequestOptions().placeholder(R.drawable.ic_person_avatar).circleCrop())
+                    //.bitmapTransform(new CropCircleTransformation(holder.itemView.getContext()))
                     .into(holder.recipientPicture);
         } else if (conversation.isGroupChannel()) {
 
@@ -139,8 +138,8 @@ public class ArchivedConversationsListAdapter extends AbstractRecyclerAdapter<Co
 
             Glide.with(holder.itemView.getContext())
                     .load(picture)
-                    .placeholder(R.drawable.ic_group_avatar)
-                    .bitmapTransform(new CropCircleTransformation(holder.itemView.getContext()))
+                    .apply(new RequestOptions().placeholder(R.drawable.ic_group_avatar).circleCrop())
+                    //.bitmapTransform(new CropCircleTransformation(holder.itemView.getContext()))
                     .into(holder.recipientPicture);
         } else {
             Toast.makeText(holder.itemView.getContext(),
@@ -269,6 +268,7 @@ public class ArchivedConversationsListAdapter extends AbstractRecyclerAdapter<Co
 
     /**
      * Dismiss the swipe menu for the view at position
+     *
      * @param position the position of the item to dismiss
      */
     public void dismissSwipeMenu(RecyclerView recyclerView, int position) {
@@ -276,7 +276,7 @@ public class ArchivedConversationsListAdapter extends AbstractRecyclerAdapter<Co
         RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(position);
 
         // check if the viewholder is an instance of ConversationListAdapter.ViewHolder
-        if(viewHolder instanceof ViewHolder) {
+        if (viewHolder instanceof ViewHolder) {
 
             // cast the holder to ConversationListAdapter.ViewHolder
             ViewHolder holder = (ViewHolder) viewHolder;

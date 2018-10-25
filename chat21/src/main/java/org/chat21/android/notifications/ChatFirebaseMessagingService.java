@@ -13,8 +13,6 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.Date;
-
 import org.chat21.android.R;
 import org.chat21.android.core.ChatManager;
 import org.chat21.android.core.messages.models.Message;
@@ -22,6 +20,8 @@ import org.chat21.android.core.users.models.ChatUser;
 import org.chat21.android.ui.ChatUI;
 import org.chat21.android.ui.messages.activities.MessageListActivity;
 import org.chat21.android.utils.StringUtils;
+
+import java.util.Date;
 
 import static org.chat21.android.ui.ChatUI.BUNDLE_CHANNEL_TYPE;
 import static org.chat21.android.utils.DebugConstants.DEBUG_NOTIFICATION;
@@ -42,7 +42,7 @@ public class ChatFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        Log.d(DEBUG_NOTIFICATION, "From: " + remoteMessage.getFrom());
+        Log.e(DEBUG_NOTIFICATION, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
@@ -93,38 +93,42 @@ public class ChatFirebaseMessagingService extends FirebaseMessagingService {
                     .getConversationsHandler()
                     .getCurrentOpenConversationId();
 
-            if (channelType.equals(Message.DIRECT_CHANNEL_TYPE)) {
+            switch (channelType) {
+                case Message.DIRECT_CHANNEL_TYPE:
 
-                if(StringUtils.isValid(currentOpenConversationId) && !currentOpenConversationId.equals(sender)) {
-                    sendDirectNotification(sender, senderFullName, text, channelType);
-                } else {
-                    if(!StringUtils.isValid(currentOpenConversationId)) {
+                    if (StringUtils.isValid(currentOpenConversationId) && !currentOpenConversationId.equals(sender)) {
                         sendDirectNotification(sender, senderFullName, text, channelType);
+                    } else {
+                        if (!StringUtils.isValid(currentOpenConversationId)) {
+                            sendDirectNotification(sender, senderFullName, text, channelType);
+                        }
                     }
-                }
-            } else if (channelType.equals(Message.GROUP_CHANNEL_TYPE)) {
-                if(StringUtils.isValid(currentOpenConversationId) && !currentOpenConversationId.equals(recipient)) {
-                    sendGroupNotification(recipient, recipientFullName, senderFullName, text, channelType);
-                } else {
-                    if(!StringUtils.isValid(currentOpenConversationId)) {
+                    break;
+                case Message.GROUP_CHANNEL_TYPE:
+                    if (StringUtils.isValid(currentOpenConversationId) && !currentOpenConversationId.equals(recipient)) {
                         sendGroupNotification(recipient, recipientFullName, senderFullName, text, channelType);
+                    } else {
+                        if (!StringUtils.isValid(currentOpenConversationId)) {
+                            sendGroupNotification(recipient, recipientFullName, senderFullName, text, channelType);
+                        }
                     }
-                }
-            } else {
-                // default case
-                if(StringUtils.isValid(currentOpenConversationId) && !currentOpenConversationId.equals(sender)) {
-                    sendDirectNotification(sender, senderFullName, text, channelType);
-                } else {
-                    if(!StringUtils.isValid(currentOpenConversationId)) {
+                    break;
+                default:
+                    // default case
+                    if (StringUtils.isValid(currentOpenConversationId) && !currentOpenConversationId.equals(sender)) {
                         sendDirectNotification(sender, senderFullName, text, channelType);
+                    } else {
+                        if (!StringUtils.isValid(currentOpenConversationId)) {
+                            sendDirectNotification(sender, senderFullName, text, channelType);
+                        }
                     }
-                }
+                    break;
             }
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.d(DEBUG_NOTIFICATION, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            Log.e(DEBUG_NOTIFICATION, "Message Notification Body: " + remoteMessage.getNotification().getBody());
 //            example DIRECT:
 //            Message Notification Body: Foreground
         }
@@ -149,7 +153,7 @@ public class ChatFirebaseMessagingService extends FirebaseMessagingService {
         intent.putExtra(ChatUI.BUNDLE_RECIPIENT, new ChatUser(sender, senderFullName));
         intent.putExtra(BUNDLE_CHANNEL_TYPE, channel);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -187,7 +191,8 @@ public class ChatFirebaseMessagingService extends FirebaseMessagingService {
      * @param senderFullName the display name of the message's sender
      * @param text           the message text
      */
-    private void sendGroupNotification(String sender, String senderFullName, String recipientFullName, String text, String channel) {
+    private void sendGroupNotification(String sender, String senderFullName,
+                                       String recipientFullName, String text, String channel) {
 
         String title = recipientFullName + " @" + senderFullName;
 
@@ -198,7 +203,7 @@ public class ChatFirebaseMessagingService extends FirebaseMessagingService {
         intent.putExtra(ChatUI.BUNDLE_RECIPIENT, new ChatUser(sender, senderFullName));
         intent.putExtra(BUNDLE_CHANNEL_TYPE, channel);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -215,17 +220,24 @@ public class ChatFirebaseMessagingService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         // Oreo fix
-        String channelId = channel;
-        String channelName = channel;
-        int importance = NotificationManager.IMPORTANCE_HIGH;
+        int importance = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            importance = NotificationManager.IMPORTANCE_HIGH;
+        }
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel mChannel = new NotificationChannel(
-                    channelId, channelName, importance);
-            notificationManager.createNotificationChannel(mChannel);
+                    channel, channel, importance);
+            try {
+                notificationManager.createNotificationChannel(mChannel);
+            } catch (NullPointerException ignore) {
+            }
         }
 
         int notificationId = (int) new Date().getTime();
-        notificationManager.notify(notificationId, notificationBuilder.build());
+        try {
+            notificationManager.notify(notificationId, notificationBuilder.build());
+        } catch (NullPointerException ignore) {
+        }
     }
 }

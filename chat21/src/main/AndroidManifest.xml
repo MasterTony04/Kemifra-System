@@ -6,8 +6,12 @@
     <application
         android:allowBackup="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.login.activities.ChatLoginActivity" />
-        <activity android:name=".ui.login.activities.ChatSignUpActivity" />
+        <activity
+            android:name=".ui.login.activities.ChatLoginActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.login.activities.ChatSignUpActivity"
+            android:launchMode="singleTask" />
 
         <!-- display the contact list -->
         <activity

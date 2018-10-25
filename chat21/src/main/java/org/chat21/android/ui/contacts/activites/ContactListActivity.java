@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.chat21.android.R;
 import org.chat21.android.connectivity.AbstractNetworkReceiver;
@@ -22,7 +23,6 @@ import org.chat21.android.ui.chat_groups.activities.AddMemberToChatGroupActivity
 import org.chat21.android.ui.contacts.fragments.ContactsListFragment;
 import org.chat21.android.ui.contacts.listeners.OnContactClickListener;
 import org.chat21.android.ui.messages.activities.MessageListActivity;
-import org.chat21.android.utils.image.CropCircleTransformation;
 
 import static org.chat21.android.ui.ChatUI.REQUEST_CODE_CREATE_GROUP;
 
@@ -118,28 +118,26 @@ public class ContactListActivity extends AppCompatActivity implements OnContactC
 
         if (ChatUI.getInstance().areGroupsEnabled()) {
             Glide.with(getApplicationContext())
+                    .asBitmap()
                     .load("")
-                    .placeholder(R.drawable.ic_group_avatar)
-                    .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                    .apply(new RequestOptions().placeholder(R.drawable.ic_group_avatar).circleCrop())
+//                    .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                     .into(mGroupIcon);
 
             // box click
-            mBoxCreateGroup.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (AbstractNetworkReceiver.isConnected(getApplicationContext())) {
+            mBoxCreateGroup.setOnClickListener(view -> {
+                if (AbstractNetworkReceiver.isConnected(getApplicationContext())) {
 
-                        if (ChatUI.getInstance().getOnCreateGroupClickListener() != null) {
-                            ChatUI.getInstance().getOnCreateGroupClickListener()
-                                    .onCreateGroupClicked();
-                        }
-
-                        startCreateGroupActivity();
-                    } else {
-                        Toast.makeText(getApplicationContext(),
-                                getString(R.string.activity_contact_list_error_cannot_create_group_offline_label),
-                                Toast.LENGTH_SHORT).show();
+                    if (ChatUI.getInstance().getOnCreateGroupClickListener() != null) {
+                        ChatUI.getInstance().getOnCreateGroupClickListener()
+                                .onCreateGroupClicked();
                     }
+
+                    startCreateGroupActivity();
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            getString(R.string.activity_contact_list_error_cannot_create_group_offline_label),
+                            Toast.LENGTH_SHORT).show();
                 }
             });
             mBoxCreateGroup.setVisibility(View.VISIBLE);

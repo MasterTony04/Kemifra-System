@@ -5,23 +5,21 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.fahamutech.adminapp.R;
+import com.fahamutech.adminapp.activities.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.chat21.android.core.ChatManager;
 import org.chat21.android.core.authentication.ChatAuthentication;
 import org.chat21.android.core.users.models.ChatUser;
 import org.chat21.android.core.users.models.IChatUser;
 import org.chat21.android.ui.ChatUI;
-import org.chat21.android.ui.messages.listeners.OnAttachClickListener;
 import org.chat21.android.ui.users.activities.PublicProfileActivity;
 
 public class ChatMainActivity extends AppCompatActivity {
@@ -53,33 +51,36 @@ public class ChatMainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            Log.e("TAG **USER", "user done login");
-            checkUserLogin();
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (resultCode == RESULT_OK) {
+//            Log.e("TAG **USER", "user done login");
+//            checkUserLogin();
+//        }
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.logout) {
             Toast.makeText(this, "Log out, please wait...", Toast.LENGTH_SHORT).show();
-            ChatAuthentication.getInstance().signOut("doctorChat", new ChatAuthentication.OnChatLogoutCallback() {
-                @Override
-                public void onChatLogoutSuccess() {
-                    FirebaseAuth.getInstance().signOut();
-                    Toast.makeText(ChatMainActivity.this,
-                            "Successful logout", Toast.LENGTH_SHORT).show();
-                }
+            ChatAuthentication.getInstance().signOut("doctorChat",
+                    new ChatAuthentication.OnChatLogoutCallback() {
+                        @Override
+                        public void onChatLogoutSuccess() {
+                            FirebaseAuth.getInstance().signOut();
+                            Toast.makeText(ChatMainActivity.this,
+                                    "Successful logout", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ChatMainActivity.this, MainActivity.class));
+                            finish();
+                        }
 
-                @Override
-                public void onChatLogoutError(Exception e) {
-                    Toast.makeText(ChatMainActivity.this,
-                            "Fail to logout, try again", Toast.LENGTH_SHORT).show();
-                }
-            });
+                        @Override
+                        public void onChatLogoutError(Exception e) {
+                            Toast.makeText(ChatMainActivity.this,
+                                    "Fail to logout, try again", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
         } else if (item.getItemId() == R.id.profile) {
             showProfile();

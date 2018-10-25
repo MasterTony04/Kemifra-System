@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GetTokenResult;
@@ -246,12 +245,9 @@ public class ConversationListFragment extends Fragment implements
     private void showCurrentUserGroups() {
         if (ChatUI.getInstance().areGroupsEnabled()) {
             // groups enabled
-            currentUserGroups.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), ChatGroupsListActivity.class);
-                    startActivity(intent);
-                }
+            currentUserGroups.setOnClickListener(view -> {
+                Intent intent = new Intent(getActivity(), ChatGroupsListActivity.class);
+                startActivity(intent);
             });
 
             currentUserGroups.setVisibility(View.VISIBLE);

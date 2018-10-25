@@ -27,7 +27,7 @@ public class HomePageFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         if (position == 0) {
-            return "Home";
+            return "Category";
         } else if (position == 1) {
             return "Testimony";
         }else return super.getPageTitle(position);

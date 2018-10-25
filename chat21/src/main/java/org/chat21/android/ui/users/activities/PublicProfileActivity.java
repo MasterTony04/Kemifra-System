@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.chat21.android.R;
 import org.chat21.android.core.ChatManager;
@@ -107,7 +108,7 @@ public class PublicProfileActivity extends AppCompatActivity implements Presence
 
         Glide.with(getApplicationContext())
                 .load(contact.getProfilePictureUrl())
-                .placeholder(R.drawable.ic_person_avatar)
+                .apply(new RequestOptions().placeholder(R.drawable.ic_person_avatar).circleCrop())
 //                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(profilePictureToolbar);
     }

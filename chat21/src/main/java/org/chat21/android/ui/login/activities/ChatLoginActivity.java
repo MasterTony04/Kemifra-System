@@ -1,6 +1,5 @@
 package org.chat21.android.ui.login.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,13 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.chat21.android.R;
 import org.chat21.android.core.ChatManager;
-import org.chat21.android.core.authentication.task.RefreshFirebaseInstanceIdTask;
 import org.chat21.android.core.exception.ChatFieldNotFoundException;
 import org.chat21.android.core.users.models.ChatUser;
 import org.chat21.android.core.users.models.IChatUser;
-import org.chat21.android.ui.ChatUI;
-import org.chat21.android.ui.contacts.activites.ContactListActivity;
-import org.chat21.android.ui.conversations.listeners.OnNewConversationClickListener;
 import org.chat21.android.utils.StringUtils;
 
 import java.util.Map;
@@ -79,10 +74,7 @@ public class ChatLoginActivity extends AppCompatActivity implements View.OnClick
         binView();
 
         mAuth = FirebaseAuth.getInstance();
-//        ChatAuthentication.getInstance().setTenant(ChatManager.getInstance().getTenant());
-//        ChatAuthentication.getInstance().createAuthListener();
 
-//        Log.d(DEBUG_LOGIN, "ChatLoginActivity.onCreate: auth state listener created ");
         setSupportActionBar(toolbar);
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
@@ -95,8 +87,6 @@ public class ChatLoginActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onStart() {
         super.onStart();
-
-
         // Check if user is signed in (non-null) and update UI accordingly.
 //        FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
@@ -233,68 +223,65 @@ public class ChatLoginActivity extends AppCompatActivity implements View.OnClick
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success");
+                        Log.e(TAG, "signInWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
 
                         if (user != null) {
                             //send verification email
                             //if (user.isEmailVerified()) user.sendEmailVerification();
 
-                            lookUpContactById(user.getUid(), new OnUserLookUpComplete() {
-                                @Override
-                                public void onUserRetrievedSuccess(IChatUser loggedUser) {
-                                    Log.d(TAG, "ChatLoginActivity.signInWithEmail." +
-                                            "onUserRetrievedSuccess: loggedUser == " +
-                                            loggedUser.toString());
-
-                                    ChatManager.Configuration mChatConfiguration = new ChatManager
-                                            .Configuration
-                                            .Builder(ChatManager.Configuration.appId)
-                                            .build();
-
-                                    //start a service
-                                    ChatManager.start(ChatLoginActivity.this, mChatConfiguration, loggedUser);
-                                    Log.i(TAG, "chat has been initialized with success");
-
-                                    // get device token
-                                    new RefreshFirebaseInstanceIdTask().execute();
-
-                                    ChatUI.getInstance().setContext(ChatLoginActivity.this);
-
-                                    Log.i(TAG, "ChatUI has been initialized with success");
-
-                                    ChatUI.getInstance().enableGroups(true);
-
-                                    // set on new conversation click listener
-                                    // final IChatUser support = new ChatUser("support", "Chat21 Support");
-                                    final IChatUser support = null;
-                                    ChatUI.getInstance().setOnNewConversationClickListener(
-                                            (OnNewConversationClickListener) () -> {
-                                                if (support != null) {
-                                                    ChatUI.getInstance()
-                                                            .openConversationMessagesActivity(support);
-                                                } else {
-                                                    Intent intent = new Intent(getApplicationContext(),
-                                                            ContactListActivity.class);
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    // start activity from context
-                                                    startActivity(intent);
-                                                }
-                                            }
-                                    );
-                                    Log.e(TAG, "ChatUI has been initialized with success");
-                                    setResult(Activity.RESULT_OK);
-
-
-                                    finish();
-                                }
-
-                                @Override
-                                public void onUserRetrievedError(Exception e) {
-                                    Log.d(TAG, "ChatLoginActivity.signInWithEmail" +
-                                            ".onUserRetrievedError: " + e.toString());
-                                }
-                            });
+//                            lookUpContactById(user.getUid(), new OnUserLookUpComplete() {
+//                                @Override
+//                                public void onUserRetrievedSuccess(IChatUser loggedUser) {
+//                                    Log.e(TAG, "ChatLoginActivity.signInWithEmail." +
+//                                            "onUserRetrievedSuccess: loggedUser == " +
+//                                            loggedUser.toString());
+////                                    ChatManager.Configuration mChatConfiguration = new ChatManager
+////                                            .Configuration
+////                                            .Builder(ChatManager.Configuration.appId)
+////                                            .build();
+////
+////                                    //start a service
+////                                    ChatManager.start(ChatLoginActivity.this, mChatConfiguration, loggedUser);
+////                                    Log.i(TAG, "chat has been initialized with success");
+//
+//                                    // get device token
+//                                    new RefreshFirebaseInstanceIdTask().execute();
+////                                    ChatUI.getInstance().setContext(ChatLoginActivity.this);
+////
+////                                    Log.i(TAG, "ChatUI has been initialized with success");
+////
+////                                    ChatUI.getInstance().enableGroups(true);
+////
+////                                    // set on new conversation click listener
+////                                    // final IChatUser support = new ChatUser("support", "Chat21 Support");
+////                                    final IChatUser support = null;
+////                                    ChatUI.getInstance().setOnNewConversationClickListener(
+////                                            (OnNewConversationClickListener) () -> {
+////                                                if (support != null) {
+////                                                    ChatUI.getInstance()
+////                                                            .openConversationMessagesActivity(support);
+////                                                } else {
+////                                                    Intent intent = new Intent(getApplicationContext(),
+////                                                            ContactListActivity.class);
+////                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////                                                    // start activity from context
+////                                                    startActivity(intent);
+////                                                }
+////                                            }
+////                                    );
+////                                    Log.e(TAG, "ChatUI has been initialized with success");
+////                                    //setResult(Activity.RESULT_OK);
+//                                    hideProgressDialog();
+//                                }
+//
+//                                @Override
+//                                public void onUserRetrievedError(Exception e) {
+//                                    Log.e(TAG, "ChatLoginActivity.signInWithEmail" +
+//                                            ".onUserRetrievedError: " + e.toString());
+//                                    hideProgressDialog();
+//                                }
+//                            });
                             // enable persistence must be made before any other usage of FirebaseDatabase instance.
                             try {
                                 FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -302,17 +289,22 @@ public class ChatLoginActivity extends AppCompatActivity implements View.OnClick
                                 Log.w(TAG, e.toString());
                             }
                         }
+                        hideProgressDialog();
+                        //setResult(Activity.RESULT_OK);
+                        finish();
+
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
 
-                        Toast.makeText(ChatLoginActivity.this, "Authentication failed.",
+                        Toast.makeText(ChatLoginActivity.this, "Authentication failed. Try again",
                                 Toast.LENGTH_SHORT).show();
+                        hideProgressDialog();
 //                            setResult(Activity.RESULT_CANCELED);
 //                            finish();
 //                            updateUI(null);
                     }
-                    hideProgressDialog();
+
                 });
         // [END sign_in_with_email]
     }

@@ -18,9 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.chat21.android.R;
 import org.chat21.android.connectivity.AbstractNetworkReceiver;
@@ -35,6 +33,9 @@ import org.chat21.android.ui.chat_groups.fragments.BottomSheetGroupAdminPanelMem
 import org.chat21.android.ui.chat_groups.listeners.OnGroupMemberClickListener;
 import org.chat21.android.ui.decorations.ItemDecoration;
 import org.chat21.android.utils.TimeUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.chat21.android.ui.ChatUI.BUNDLE_CHAT_GROUP;
 import static org.chat21.android.ui.ChatUI.BUNDLE_GROUP_ID;
@@ -136,7 +137,7 @@ public class GroupAdminPanelActivity extends AppCompatActivity implements
         // chatGroup picture
         Glide.with(getApplicationContext())
                 .load(chatGroup.getIconURL())
-                .placeholder(R.drawable.ic_group_avatar)
+                .apply(new RequestOptions().placeholder(R.drawable.ic_group_avatar))
                 .into(mGroupImage);
 
         // minimal settings

@@ -2,6 +2,7 @@ package org.chat21.android.ui.messages.activities;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,8 +11,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import org.chat21.android.R;
 import org.chat21.android.core.messages.models.Message;
@@ -136,28 +137,32 @@ public class ImageDetailsActivity extends AppCompatActivity {
 
         final TouchImageView mImage = findViewById(R.id.image);
 
-        mImage.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
+        mImage.setOnTouchImageViewListener(() -> {
 //                RectF rect = mImage.getZoomedRect();
 //                float currentZoom = mImage.getCurrentZoom();
 //                boolean isZoomed = mImage.isZoomed();
-            }
         });
 
 
         // https://github.com/MikeOrtiz/TouchImageView/issues/135
         Glide.with(this)
-                .load(imgUrl)
                 .asBitmap()
+                .load(imgUrl)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    public void onResourceReady(@NonNull Bitmap resource,
+                                                @Nullable Transition<? super Bitmap> transition) {
                         mImage.setImageBitmap(resource);
                     }
                 });
+//                .into(new SimpleTarget<Bitmap>() {
+//                    @Override
+//                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//
+//                    }
+//                });
 
-//                // make the imageview zoomable
+                // make the imageview zoomable
 //                // source : https://github.com/chrisbanes/PhotoView
 //                PhotoViewAttacher mAttacher = new PhotoViewAttacher(mImage);
 //                mAttacher.update();

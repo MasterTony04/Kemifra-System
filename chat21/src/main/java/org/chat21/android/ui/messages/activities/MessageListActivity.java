@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.Px;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -31,8 +32,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.features.ReturnMode;
+import com.esafirm.imagepicker.model.Image;
 import com.vanniktech.emoji.EmojiEditText;
 import com.vanniktech.emoji.EmojiImageView;
 import com.vanniktech.emoji.EmojiPopup;
@@ -68,7 +73,6 @@ import org.chat21.android.ui.messages.listeners.OnMessageClickListener;
 import org.chat21.android.ui.users.activities.PublicProfileActivity;
 import org.chat21.android.utils.StringUtils;
 import org.chat21.android.utils.TimeUtils;
-import org.chat21.android.utils.image.CropCircleTransformation;
 
 import java.io.File;
 import java.util.HashMap;
@@ -142,7 +146,7 @@ public class MessageListActivity extends AppCompatActivity
         if (contactsSynchronizer != null) {
             IChatUser matchedContact = contactsSynchronizer.findById(recipient.getId());
 
-            if(matchedContact != null) {
+            if (matchedContact != null) {
                 recipient = matchedContact;
             }
         }
@@ -189,7 +193,6 @@ public class MessageListActivity extends AppCompatActivity
 //            // retrieve the updated recipient
 //            recipient = ChatManager.getInstance().getContactsSynchronizer().findById(recipientId);
 //        }
-
 
 
         // ######### begin conversation messages handler
@@ -402,9 +405,10 @@ public class MessageListActivity extends AppCompatActivity
 
     private void setPicture(String pictureUrl, @DrawableRes int placeholder) {
         Glide.with(getApplicationContext())
+                .asBitmap()
                 .load(StringUtils.isValid(pictureUrl) ? pictureUrl : "")
-                .placeholder(placeholder)
-                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                .apply(new RequestOptions().placeholder(placeholder).circleCrop())
+//                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(mPictureView);
     }
 
@@ -448,7 +452,7 @@ public class MessageListActivity extends AppCompatActivity
                 ChatUI.getInstance().getOnMessageClickListener()
                         .onMessageLinkClick(messageView, clickableSpan);
             } else {
-                Log.d(TAG, "Chat.Configuration.getMessageClickListener() == null");
+                Log.e(TAG, "Chat.Configuration.getMessageClickListener() == null");
             }
         }
     };
@@ -492,12 +496,7 @@ public class MessageListActivity extends AppCompatActivity
         sendButton.setColorFilter(ContextCompat
                 .getColor(this, R.color.emoji_icons), PorterDuff.Mode.SRC_IN);
 
-        emojiButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                emojiPopup.toggle();
-            }
-        });
+        emojiButton.setOnClickListener(v -> emojiPopup.toggle());
         attachButton.setOnClickListener(v -> {
             Log.d(TAG, "MessageListActivity.onAttachClicked");
 
@@ -505,61 +504,66 @@ public class MessageListActivity extends AppCompatActivity
                 ChatUI.getInstance().getOnAttachClickListener().onAttachClicked(null);
             }
 
-            showAttachBottomSheet();
+            //showAttachBottomSheet();
+            ImagePicker.create(this)
+                    .limit(1)
+                    .returnMode(ReturnMode.ALL)
+                    .theme(R.style.AppTheme)
+                    .showCamera(true)
+                    .single()
+                    .includeVideo(false)
+                    .start();
         });
 
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Log.d(TAG, "onSendClicked");
+        sendButton.setOnClickListener(v -> {
+            Log.d(TAG, "onSendClicked");
 
-                String text = editText.getText().toString();
+            String text = editText.getText().toString();
 
-                if (!StringUtils.isValid(text)) {
+            if (!StringUtils.isValid(text)) {
 //                    Toast.makeText(MessageListActivity.this,
 //                            getString(R.string.cannot_send_empty_message),
 //                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                ChatManager.getInstance().sendTextMessage(recipient.getId(), recipient.getFullName(),
-                        text, channelType, null, new SendMessageListener() {
-                            @Override
-                            public void onBeforeMessageSent(Message message, ChatRuntimeException chatException) {
-                                if (chatException == null) {
-                                    // if the message exists update it, else add it
-                                    Log.d(TAG, "sendTextMessage.onBeforeMessageSent.message.id: " + message.getId());
-                                    Log.d(TAG, "sendTextMessage.onBeforeMessageSent.message.recipient: " + message.getRecipient());
-
-                                    messageListAdapter.updateMessage(message);
-                                    scrollToBottom();
-                                } else {
-
-                                    Toast.makeText(MessageListActivity.this,
-                                            "Failed to send message",
-                                            Toast.LENGTH_SHORT).show();
-
-                                    Log.e(TAG, "sendTextMessage.onBeforeMessageSent: ", chatException);
-                                }
-                            }
-
-                            @Override
-                            public void onMessageSentComplete(Message message, ChatRuntimeException chatException) {
-                                if (chatException == null) {
-
-                                    Log.d(TAG, "message sent: " + message.toString());
-                                } else {
-                                    Toast.makeText(MessageListActivity.this,
-                                            "Failed to send message",
-                                            Toast.LENGTH_SHORT).show();
-                                    Log.e(TAG, "error sending message : ", chatException);
-                                }
-                            }
-                        });
-
-                // clear the edittext
-                editText.setText("");
+                return;
             }
+
+            ChatManager.getInstance().sendTextMessage(recipient.getId(), recipient.getFullName(),
+                    text, channelType, null, new SendMessageListener() {
+                        @Override
+                        public void onBeforeMessageSent(Message message, ChatRuntimeException chatException) {
+                            if (chatException == null) {
+                                // if the message exists update it, else add it
+                                Log.d(TAG, "sendTextMessage.onBeforeMessageSent.message.id: " + message.getId());
+                                Log.d(TAG, "sendTextMessage.onBeforeMessageSent.message.recipient: " + message.getRecipient());
+
+                                messageListAdapter.updateMessage(message);
+                                scrollToBottom();
+                            } else {
+
+                                Toast.makeText(MessageListActivity.this,
+                                        "Failed to send message",
+                                        Toast.LENGTH_SHORT).show();
+
+                                Log.e(TAG, "sendTextMessage.onBeforeMessageSent: ", chatException);
+                            }
+                        }
+
+                        @Override
+                        public void onMessageSentComplete(Message message, ChatRuntimeException chatException) {
+                            if (chatException == null) {
+
+                                Log.d(TAG, "message sent: " + message.toString());
+                            } else {
+                                Toast.makeText(MessageListActivity.this,
+                                        "Failed to send message",
+                                        Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "error sending message : ", chatException);
+                            }
+                        }
+                    });
+
+            // clear the edittext
+            editText.setText("");
         });
         setUpEmojiPopup();
 
@@ -648,20 +652,25 @@ public class MessageListActivity extends AppCompatActivity
 ////        return properties;
 ////    }
 
-
     @TargetApi(19)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == _INTENT_ACTION_GET_PICTURE) {
-            if (data != null && data.getData() != null && resultCode == RESULT_OK) {
+//        if (requestCode == _INTENT_ACTION_GET_PICTURE) {
+////            if (data != null && data.getData() != null && resultCode == RESULT_OK) {
+////
+////                Uri uri = data.getData();
+////
+////                // convert the stream to a file
+////                File fileToUpload = new File(StorageHandler.getFilePathFromUri(this, uri));
+////                showConfirmUploadDialog(fileToUpload);
+////            }
+//        } else
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
 
-                Uri uri = data.getData();
+            Image firstImageOrNull = ImagePicker.getFirstImageOrNull(data);
+            showConfirmUploadDialog(new File(firstImageOrNull.getPath()));
 
-                // convert the stream to a file
-                File fileToUpload = new File(StorageHandler.getFilePathFromUri(this, uri));
-                showConfirmUploadDialog(fileToUpload);
-            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -701,13 +710,14 @@ public class MessageListActivity extends AppCompatActivity
                 progressDialog.dismiss(); // bugfix Issue #45
 
                 Glide.with(getApplicationContext())
-                        .load(downloadUrl)
                         .asBitmap()
+                        .load(downloadUrl)
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
-                            public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
-                                int width = bitmap.getWidth();
-                                int height = bitmap.getHeight();
+                            public void onResourceReady(@NonNull Bitmap resource,
+                                                        @Nullable Transition<? super Bitmap> transition) {
+                                int width = resource.getWidth();
+                                int height = resource.getHeight();
 
                                 Log.d(TAG, " MessageListActivity.uploadFile:" +
                                         " width == " + width + " - height == " + height);

@@ -9,14 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
-import java.util.List;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.chat21.android.R;
 import org.chat21.android.core.users.models.IChatUser;
 import org.chat21.android.ui.adapters.AbstractRecyclerAdapter;
 import org.chat21.android.ui.chat_groups.listeners.OnRemoveClickListener;
-import org.chat21.android.utils.image.CropCircleTransformation;
+
+import java.util.List;
 
 /**
  * Created by stefanodp91 on 07/12/17.
@@ -83,8 +83,8 @@ public class SelectedContactListAdapter extends AbstractRecyclerAdapter<IChatUse
 
             Glide.with(itemView.getContext())
                     .load(url)
-                    .placeholder(R.drawable.ic_person_avatar)
-                    .bitmapTransform(new CropCircleTransformation(itemView.getContext()))
+                    .apply(new RequestOptions().placeholder(R.drawable.ic_person_avatar).circleCrop())
+                    //.bitmapTransform(new CropCircleTransformation(itemView.getContext()))
                     .into(profilePicture);
         }
 

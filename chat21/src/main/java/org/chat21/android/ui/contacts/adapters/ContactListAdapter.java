@@ -10,12 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.chat21.android.R;
 import org.chat21.android.core.users.models.IChatUser;
 import org.chat21.android.ui.contacts.listeners.OnContactClickListener;
 import org.chat21.android.utils.StringUtils;
-import org.chat21.android.utils.image.CropCircleTransformation;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -69,8 +69,8 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         Glide.with(holder.itemView.getContext())
                 .load(contact.getProfilePictureUrl())
-                .placeholder(R.drawable.ic_person_avatar)
-                .bitmapTransform(new CropCircleTransformation(holder.itemView.getContext()))
+                .apply(new RequestOptions().placeholder(R.drawable.ic_person_avatar).circleCrop())
+                //.bitmapTransform(new CropCircleTransformation(holder.itemView.getContext()))
                 .into(holder.mProfilePicture);
 
         holder.itemView.setOnClickListener(v ->

@@ -22,12 +22,14 @@ import com.fahamutech.adminapp.R;
 import com.fahamutech.adminapp.adapter.HomePageFragmentAdapter;
 import com.fahamutech.adminapp.chat21.MySplashActivity;
 import com.fahamutech.adminapp.database.noSql.HomeNoSqlDatabase;
-import com.fahamutech.adminapp.model.Category;
 import com.fahamutech.adminapp.model.Testimony;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import org.chat21.android.core.authentication.ChatAuthentication;
+import org.chat21.android.ui.login.activities.ChatLoginActivity;
 
 import java.io.File;
 import java.util.Calendar;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
-            // startActivity(new Intent(this, MySplashActivity.class));
+            startActivity(new Intent(this, ChatLoginActivity.class));
         }
         super.onStart();
     }
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
-            //startActivity(new Intent(this, MySplashActivity.class));
+            startActivity(new Intent(this, ChatLoginActivity.class));
         }
         super.onResume();
     }
@@ -111,8 +113,26 @@ public class MainActivity extends AppCompatActivity {
                     .limit(1)
                     .returnMode(ReturnMode.ALL)
                     .start();
-        }
+            return true;
+        } else if (id == R.id.action_doctor_logout) {
+            Toast.makeText(this, "Logout, pleas wait...", Toast.LENGTH_SHORT).show();
+            ChatAuthentication.getInstance().signOut("doctorApp", new ChatAuthentication.OnChatLogoutCallback() {
+                @Override
+                public void onChatLogoutSuccess() {
+                    if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                        FirebaseAuth.getInstance().signOut();
+                    }
+                    Toast.makeText(MainActivity.this, "Successful logout", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this, ChatLoginActivity.class));
+                    finish();
+                }
 
+                @Override
+                public void onChatLogoutError(Exception e) {
+                    Toast.makeText(MainActivity.this, "Logout failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         return super.onOptionsItemSelected(item);
     }
 

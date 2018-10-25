@@ -9,16 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.chat21.android.R;
 import org.chat21.android.core.users.models.IChatUser;
 import org.chat21.android.ui.adapters.AbstractRecyclerAdapter;
 import org.chat21.android.ui.chat_groups.listeners.OnGroupMemberClickListener;
 import org.chat21.android.utils.StringUtils;
-import org.chat21.android.utils.image.CropCircleTransformation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by stefano on 29/06/2017.
@@ -83,8 +83,8 @@ public class GroupMembersListAdapter extends AbstractRecyclerAdapter<IChatUser,
 
         Glide.with(holder.itemView.getContext())
                 .load(url)
-                .placeholder(R.drawable.ic_person_avatar)
-                .bitmapTransform(new CropCircleTransformation(holder.itemView.getContext()))
+                .apply(new RequestOptions().placeholder(R.drawable.ic_person_avatar).circleCrop())
+                // .bitmapTransform(new CropCircleTransformation(holder.itemView.getContext()))
                 .into(holder.profilePicture);
     }
 

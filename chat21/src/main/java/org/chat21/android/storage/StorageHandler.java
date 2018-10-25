@@ -8,18 +8,17 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnPausedListener;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.chat21.android.core.ChatManager;
+import org.chat21.android.utils.StringUtils;
+import org.chat21.android.utils.image.ImageCompressor;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,10 +28,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Pattern;
-
-import org.chat21.android.core.ChatManager;
-import org.chat21.android.utils.StringUtils;
-import org.chat21.android.utils.image.ImageCompressor;
 
 /**
  * Created by stefanodp91 on 02/08/17.
@@ -87,36 +82,36 @@ public class StorageHandler {
         final String uuid = UUID.randomUUID().toString();
 
         // upload to /public/images/uuid/file.ext
-        StorageReference riversRef = storageReference.child(type.toString() + "/" + uuid + "/" +
+        StorageReference riversRef = storageReference.child(type + "/" + uuid + "/" +
                 file.getLastPathSegment());
         Log.d(TAG, "riversRef ==" + riversRef);
 
         UploadTask uploadTask = riversRef.putFile(file);
 
         // Register observers to listen for when the download is done or if it fails
-        uploadTask.addOnFailureListener(
-                exception -> {
-                    // Handle unsuccessful uploads
-                    Log.e(TAG, "addOnFailureListener.onFailure: " + exception.getMessage());
+        uploadTask.
+                continueWithTask(task -> {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return riversRef.getDownloadUrl();
+                }).
+                addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Uri downloadUrl = task.getResult();
+                        Log.d(TAG, "addOnFailureListener.onSuccess - downloadUrl: " + downloadUrl);
 
-                    callback.onUploadFailed(exception);
-                })
-                .addOnProgressListener(taskSnapshot -> {
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) /
-                            taskSnapshot.getTotalByteCount();
-                    Log.d(TAG, "Upload is " + progress + "% done");
-                    int currentProgress = (int) progress;
-                    callback.onProgress(currentProgress);
-                })
-                .addOnPausedListener(taskSnapshot -> System.out.println("Upload is paused"))
-                .addOnSuccessListener(taskSnapshot -> {
-                    // taskSnapshot.getMetadata() contains file metadata such as size,
-                    // content-type, and download URL.
+                        callback.onUploadSuccess(uuid, downloadUrl, type);
+                    } else {
+                        // Handle unsuccessful uploads
+                        try {
+                            Log.e(TAG, "addOnFailureListener.onFailure: " +
+                                    task.getException().getMessage());
+                        } catch (NullPointerException ignore) {
+                        }
 
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    Log.d(TAG, "addOnFailureListener.onSuccess - downloadUrl: " + downloadUrl);
-
-                    callback.onUploadSuccess(uuid, downloadUrl, type);
+                        callback.onUploadFailed(task.getException());
+                    }
                 });
     }
 
@@ -309,7 +304,6 @@ public class StorageHandler {
 
         return fileExtension;
     }
-
 
     private static boolean isImage(String extension) {
         boolean isImage = false;
