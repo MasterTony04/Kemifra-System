@@ -3,8 +3,7 @@ package com.fahamutech.doctorapp.session;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.fahamutech.doctorapp.forum.model.Patient;
-import com.google.firebase.auth.FirebaseUser;
+import com.fahamutech.doctorapp.model.Patient;
 import com.google.gson.Gson;
 
 public class Session {

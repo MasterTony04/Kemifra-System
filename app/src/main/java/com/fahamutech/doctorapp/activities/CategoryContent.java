@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.fahamutech.doctorapp.R;
-import com.fahamutech.doctorapp.forum.ForumMainActivity;
 import com.fahamutech.doctorapp.database.connector.ArticleDataSource;
 import com.fahamutech.doctorapp.database.noSql.ArticlesNoSqlDatabase;
 import com.fahamutech.doctorapp.model.Category;
@@ -56,7 +55,7 @@ public class CategoryContent extends AppCompatActivity {
         fab.setOnClickListener(view -> {
             Snackbar.make(view,
                     "Chat opening...", Snackbar.LENGTH_LONG).show();
-            startActivity(new Intent(this, ForumMainActivity.class));
+           // startActivity(new Intent(this, ForumMainActivity.class));
         });
     }
 

@@ -16,7 +16,11 @@ import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.fahamutech.doctorapp.R;
 import com.fahamutech.doctorapp.adapter.HomePageFragmentAdapter;
-import com.fahamutech.doctorapp.forum.ForumMainActivity;
+import com.fahamutech.doctorapp.chat21.ChatMainActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.chat21.android.ui.login.activities.ChatLoginActivity;
 
 public class MainActivity extends AppCompatActivity implements BillingProcessor.IBillingHandler {
 
@@ -25,6 +29,15 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private BillingProcessor billingProcessor;
+
+    @Override
+    protected void onStart() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            startActivity(new Intent(this, ChatLoginActivity.class));
+        }
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +59,15 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     }
 
     @Override
+    protected void onResume() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            startActivity(new Intent(this, ChatLoginActivity.class));
+        }
+        super.onResume();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (!billingProcessor.handleActivityResult(requestCode, resultCode, data)) {
             super.onActivityResult(requestCode, resultCode, data);
@@ -55,22 +77,22 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     private void initVipContent() {
         fab.setOnClickListener(view -> {
             Snackbar.make(view, "Chat is opening...", Snackbar.LENGTH_SHORT).show();
-            //startActivity(new Intent(this, ForumMainActivity.class));
-            if (billingProcessor.isOneTimePurchaseSupported()) {
-                TransactionDetails purchaseTransactionDetails =
-                        billingProcessor.getPurchaseTransactionDetails(getString(R.string.chat_product));
-                if (purchaseTransactionDetails != null) {
-                    //Log.e("TAG**PURCHASE","purchase not equal to null");
-                    String string = purchaseTransactionDetails.purchaseInfo.purchaseData.toString();
-                    Log.e("TAG*****",string);
-
-                    billingProcessor.purchase(this, getString(R.string.chat_product));
-
-                } else {
-                    Log.e("TAG**PURCHASE null", "purchase is equal null");
-                    billingProcessor.purchase(this, getString(R.string.chat_product));
-                }
-            }
+            startActivity(new Intent(this, ChatMainActivity.class));
+//            if (billingProcessor.isOneTimePurchaseSupported()) {
+//                TransactionDetails purchaseTransactionDetails =
+//                        billingProcessor.getPurchaseTransactionDetails(getString(R.string.chat_product));
+//                if (purchaseTransactionDetails != null) {
+//                    //Log.e("TAG**PURCHASE","purchase not equal to null");
+//                    String string = purchaseTransactionDetails.purchaseInfo.purchaseData.toString();
+//                    Log.e("TAG*****", string);
+//
+//                    billingProcessor.purchase(this, getString(R.string.chat_product));
+//
+//                } else {
+//                    Log.e("TAG**PURCHASE null", "purchase is equal null");
+//                    billingProcessor.purchase(this, getString(R.string.chat_product));
+//                }
+            // }
             //billingProcessor.purchase(this, "android.test.purchased");
         });
     }
@@ -93,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
         Log.e("PAY PURCHASED", productId);
         //todo : check the date of the product purchase in order to consume it
-        startActivity(new Intent(this, ForumMainActivity.class));
+        // startActivity(new Intent(this, ForumMainActivity.class));
         // billingProcessor.consumePurchase(productId);
     }
 

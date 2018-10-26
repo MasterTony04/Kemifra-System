@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -41,7 +42,7 @@ public class HomeNoSqlDatabase extends NoSqlDatabase implements HomeDataSource {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     categories.addAll(queryDocumentSnapshots.toObjects(Category.class));
                     CatAdapter catAdapter = new CatAdapter(categories, context);
-                    recyclerView.setLayoutManager(new GridLayoutManager(this.context, 2));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
                     recyclerView.setAdapter(catAdapter);
                     swipeRefreshLayout.setRefreshing(false);
                     Log.e("TAG***", " done get categories");

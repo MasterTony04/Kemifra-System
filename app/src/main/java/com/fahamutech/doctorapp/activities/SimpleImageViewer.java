@@ -7,7 +7,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler;
@@ -44,7 +43,7 @@ public class SimpleImageViewer extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view ->
                 Snackbar.make(view, "Share project", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+                        .setAction("Action", null).show());
 
     }
 
