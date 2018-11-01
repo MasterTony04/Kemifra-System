@@ -28,9 +28,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.chat21.android.R;
 import org.chat21.android.core.ChatManager;
+import org.chat21.android.core.authentication.task.RefreshFirebaseInstanceIdTask;
 import org.chat21.android.core.exception.ChatFieldNotFoundException;
 import org.chat21.android.core.users.models.ChatUser;
 import org.chat21.android.core.users.models.IChatUser;
+import org.chat21.android.ui.ChatUI;
+import org.chat21.android.ui.contacts.activites.ContactListActivity;
+import org.chat21.android.ui.conversations.listeners.OnNewConversationClickListener;
 import org.chat21.android.utils.StringUtils;
 
 import java.util.Map;
@@ -230,58 +234,58 @@ public class ChatLoginActivity extends AppCompatActivity implements View.OnClick
                             //send verification email
                             //if (user.isEmailVerified()) user.sendEmailVerification();
 
-//                            lookUpContactById(user.getUid(), new OnUserLookUpComplete() {
-//                                @Override
-//                                public void onUserRetrievedSuccess(IChatUser loggedUser) {
-//                                    Log.e(TAG, "ChatLoginActivity.signInWithEmail." +
-//                                            "onUserRetrievedSuccess: loggedUser == " +
-//                                            loggedUser.toString());
-////                                    ChatManager.Configuration mChatConfiguration = new ChatManager
-////                                            .Configuration
-////                                            .Builder(ChatManager.Configuration.appId)
-////                                            .build();
-////
-////                                    //start a service
-////                                    ChatManager.start(ChatLoginActivity.this, mChatConfiguration, loggedUser);
-////                                    Log.i(TAG, "chat has been initialized with success");
-//
-//                                    // get device token
-//                                    new RefreshFirebaseInstanceIdTask().execute();
-////                                    ChatUI.getInstance().setContext(ChatLoginActivity.this);
-////
-////                                    Log.i(TAG, "ChatUI has been initialized with success");
-////
-////                                    ChatUI.getInstance().enableGroups(true);
-////
-////                                    // set on new conversation click listener
-////                                    // final IChatUser support = new ChatUser("support", "Chat21 Support");
-////                                    final IChatUser support = null;
-////                                    ChatUI.getInstance().setOnNewConversationClickListener(
-////                                            (OnNewConversationClickListener) () -> {
-////                                                if (support != null) {
-////                                                    ChatUI.getInstance()
-////                                                            .openConversationMessagesActivity(support);
-////                                                } else {
-////                                                    Intent intent = new Intent(getApplicationContext(),
-////                                                            ContactListActivity.class);
-////                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                                                    // start activity from context
-////                                                    startActivity(intent);
-////                                                }
-////                                            }
-////                                    );
-////                                    Log.e(TAG, "ChatUI has been initialized with success");
-////                                    //setResult(Activity.RESULT_OK);
-//                                    hideProgressDialog();
-//                                }
-//
-//                                @Override
-//                                public void onUserRetrievedError(Exception e) {
-//                                    Log.e(TAG, "ChatLoginActivity.signInWithEmail" +
-//                                            ".onUserRetrievedError: " + e.toString());
-//                                    hideProgressDialog();
-//                                }
-//                            });
+                            lookUpContactById(user.getUid(), new OnUserLookUpComplete() {
+                                @Override
+                                public void onUserRetrievedSuccess(IChatUser loggedUser) {
+                                    Log.e(TAG, "ChatLoginActivity.signInWithEmail." +
+                                            "onUserRetrievedSuccess: loggedUser == " +
+                                            loggedUser.toString());
+                                    ChatManager.Configuration mChatConfiguration = new ChatManager
+                                            .Configuration
+                                            .Builder(ChatManager.Configuration.appId)
+                                            .build();
+
+                                    //start a service
+                                    ChatManager.start(ChatLoginActivity.this, mChatConfiguration, loggedUser);
+                                    Log.i(TAG, "chat has been initialized with success");
+
+                                    // get device token
+                                    new RefreshFirebaseInstanceIdTask().execute();
+                                    ChatUI.getInstance().setContext(ChatLoginActivity.this);
+
+                                    Log.i(TAG, "ChatUI has been initialized with success");
+
+                                    ChatUI.getInstance().enableGroups(true);
+
+                                    // set on new conversation click listener
+                                    // final IChatUser support = new ChatUser("support", "Chat21 Support");
+                                    final IChatUser support = null;
+                                    ChatUI.getInstance().setOnNewConversationClickListener(
+                                            (OnNewConversationClickListener) () -> {
+                                                if (support != null) {
+                                                    ChatUI.getInstance()
+                                                            .openConversationMessagesActivity(support);
+                                                } else {
+                                                    Intent intent = new Intent(getApplicationContext(),
+                                                            ContactListActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    // start activity from context
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                    );
+                                    Log.e(TAG, "ChatUI has been initialized with success");
+//                                    //setResult(Activity.RESULT_OK);
+                                    hideProgressDialog();
+                                }
+
+                                @Override
+                                public void onUserRetrievedError(Exception e) {
+                                    Log.e(TAG, "ChatLoginActivity.signInWithEmail" +
+                                            ".onUserRetrievedError: " + e.toString());
+                                    hideProgressDialog();
+                                }
+                            });
                             // enable persistence must be made before any other usage of FirebaseDatabase instance.
                             try {
                                 FirebaseDatabase.getInstance().setPersistenceEnabled(true);

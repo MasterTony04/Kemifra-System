@@ -117,8 +117,10 @@ public class ChatSignUpActivity extends AppCompatActivity {
                 return;
             }
 
+
             // perform the user creation
             progressBar.setVisibility(View.VISIBLE);
+            btnSignup.setEnabled(false);
             if (isValidEmail && areValidPasswords) {
                 createUserOnFirebaseAuthentication(email, password, new OnUserCreatedOnFirebaseCallback() {
 
@@ -247,6 +249,7 @@ public class ChatSignUpActivity extends AppCompatActivity {
 //                        Toast.makeText(ChatSignUpActivity.this, "createUserWithEmail:onComplete:"
 // + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
+                    btnSignup.setEnabled(true);
                     // If sign in fails, display a message to the user. If sign in succeeds
                     // the auth state listener will be notified and logic to handle the
                     // signed in user can be handled in the listener.

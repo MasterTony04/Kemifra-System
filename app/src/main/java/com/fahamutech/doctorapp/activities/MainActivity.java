@@ -77,23 +77,19 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     private void initVipContent() {
         fab.setOnClickListener(view -> {
             Snackbar.make(view, "Chat is opening...", Snackbar.LENGTH_SHORT).show();
-            startActivity(new Intent(this, ChatMainActivity.class));
-//            if (billingProcessor.isOneTimePurchaseSupported()) {
-//                TransactionDetails purchaseTransactionDetails =
-//                        billingProcessor.getPurchaseTransactionDetails(getString(R.string.chat_product));
-//                if (purchaseTransactionDetails != null) {
-//                    //Log.e("TAG**PURCHASE","purchase not equal to null");
-//                    String string = purchaseTransactionDetails.purchaseInfo.purchaseData.toString();
-//                    Log.e("TAG*****", string);
-//
-//                    billingProcessor.purchase(this, getString(R.string.chat_product));
-//
-//                } else {
-//                    Log.e("TAG**PURCHASE null", "purchase is equal null");
-//                    billingProcessor.purchase(this, getString(R.string.chat_product));
-//                }
-            // }
-            //billingProcessor.purchase(this, "android.test.purchased");
+            boolean iabServiceAvailable = BillingProcessor.isIabServiceAvailable(this);
+            if (iabServiceAvailable) {
+                if (billingProcessor.isSubscriptionUpdateSupported()) {
+
+                    if (billingProcessor.isSubscribed(getString(R.string.chat_sub_product))) {
+                        onProductPurchased(getString(R.string.chat_sub_product),
+                                billingProcessor.getSubscriptionTransactionDetails(getString(R.string.chat_sub_product)));
+                    } else {
+                        Log.e("TAG**PURCHASE ", "purchase initialized");
+                        billingProcessor.subscribe(this, getString(R.string.chat_sub_product));
+                    }
+                }
+            }
         });
     }
 
@@ -115,8 +111,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
         Log.e("PAY PURCHASED", productId);
         //todo : check the date of the product purchase in order to consume it
-        // startActivity(new Intent(this, ForumMainActivity.class));
-        // billingProcessor.consumePurchase(productId);
+        startActivity(new Intent(this, ChatMainActivity.class));
     }
 
     @Override

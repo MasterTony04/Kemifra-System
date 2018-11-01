@@ -1,8 +1,6 @@
 package com.fahamutech.adminapp.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +13,7 @@ import com.fahamutech.adminapp.model.Article;
 
 public class ReadActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private FloatingActionButton fab;
+    //private FloatingActionButton fab;
     private TextView title;
     private TextView content;
     private ImageView image;
@@ -44,12 +42,12 @@ public class ReadActivity extends AppCompatActivity {
         }
 
         //testing
-        fab.setOnClickListener(view -> {
-            Snackbar.make(view, "Share opening...", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-            // Intent intent = new Intent(Intent.ACTION_SEND);
-            //startActivity(new Intent(this, ImageActivity.class));
-        });
+//        fab.setOnClickListener(view -> {
+//            Snackbar.make(view, "Share opening...", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show();
+//            // Intent intent = new Intent(Intent.ACTION_SEND);
+//            //startActivity(new Intent(this, ImageActivity.class));
+//        });
     }
 
     private void iniView(Article article) {
@@ -60,7 +58,7 @@ public class ReadActivity extends AppCompatActivity {
 
     private void bindView() {
         toolbar = findViewById(R.id.toolbar);
-        fab = findViewById(R.id.fab);
+        //fab = findViewById(R.id.fab);
         content = findViewById(R.id.read_content);
         title = findViewById(R.id.read_title);
         image = findViewById(R.id.read_image);

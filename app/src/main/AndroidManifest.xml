@@ -97,6 +97,26 @@
         <!--android:parentActivityName=".forum.MyChatActivity"-->
         <!--android:theme="@style/AppTheme.NoActionBar" />-->
 
+        <service android:name="org.chat21.android.notifications.ChatFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name="org.chat21.android.ui.messages.activities.MessageListActivity">
+
+            <!--
+             http://stackoverflow.com/questions/39663601/open-a-specific-activity-from-firebase-notification
+             from notification
+             bugfix Issue #39
+            -->
+            <intent-filter>
+                <action android:name="ACTION_DEFAULT_CHAT_INTENT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -55,7 +54,7 @@ public class ChatManager {
     private static ChatManager mInstance;
 
     private IChatUser loggedUser;
-    private String appId;
+    private String appId = "doctorChat";
     private Context mContext;
 
     private Map<String, ConversationMessagesHandler> conversationMessagesHandlerMap;
@@ -69,7 +68,7 @@ public class ChatManager {
 
     // private constructor
     private ChatManager() {
-        conversationMessagesHandlerMap = new HashMap<String, ConversationMessagesHandler>();
+        conversationMessagesHandlerMap = new HashMap<>();
 
         presenceHandlerMap = new HashMap<>();
     }
@@ -93,10 +92,12 @@ public class ChatManager {
         return isUserLogged;
     }
 
+    //edited
     public String getAppId() {
         Log.d(TAG, "getAppId");
 
-        return this.appId;
+        //return this.appId;
+        return "doctorChat";
     }
 
     private void setContext(Context context) {
@@ -278,7 +279,7 @@ public class ChatManager {
 //        IOUtils.saveObjectToFile(context, _SERIALIZED_CHAT_CONFIGURATION_LOGGED_USER, currentUser);
         chat.setLoggedUser(currentUser);
 
-        chat.appId = configuration.appId;
+        //chat.appId = configuration.appId;
 
         // serialize the appId
         IOUtils.saveObjectToFile(context, _SERIALIZED_CHAT_CONFIGURATION_TENANT, configuration.appId);
@@ -485,7 +486,7 @@ public class ChatManager {
         }
     }
 
-  public ArchivedConversationsHandler getArchivedConversationsHandler() {
+    public ArchivedConversationsHandler getArchivedConversationsHandler() {
         if (this.archivedConversationsHandler != null) {
             return this.archivedConversationsHandler;
         } else {
@@ -594,16 +595,16 @@ public class ChatManager {
 
         private static final String TAG = Configuration.class.getName();
 
-        public static String appId;
+        public static String appId = "doctorChat";
         public static String firebaseUrl;
         public static String storageBucket;
 
         public Configuration(Builder builder) {
             Log.v(TAG, "Configuration constructor called");
 
-            this.appId = builder.mAppId;
-            this.firebaseUrl = builder.mFirebaseUrl;
-            this.storageBucket = builder.mStorageBucket;
+            //Configuration.appId = "doctorChat";
+            Configuration.firebaseUrl = builder.mFirebaseUrl;
+            Configuration.storageBucket = builder.mStorageBucket;
         }
 
         /**
@@ -612,14 +613,14 @@ public class ChatManager {
         public static final class Builder {
             private static final String TAG = Builder.class.getName();
 
-            private String mAppId;
+            private String mAppId = "doctorChat";
             private String mFirebaseUrl;
             private String mStorageBucket;
 
             public Builder(String appId) {
                 Log.d(TAG, "Configuration.Builder: appId = " + appId);
 
-                mAppId = appId;
+                //mAppId = "doctorChat";
             }
 
             public Builder firebaseUrl(String firebaseUrl) {
