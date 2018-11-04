@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Forum</string>
+    <string name="delete_action">delete action</string>
+    <string name="post_title">Post Title</string>
+    <string name="post_description">Post Description</string>
+    <string name="mada_mpya">Maelezo…</string>
+    <string name="mada_mpya_title">Mada…</string>
+    <string name="clock_time">12:52</string>
+    <string name="jina">Jina</string>
+    <string name="barupepe">Barupepe</string>
+    <string name="chami_epimark">Chami epimark</string>
+    <string name="description">description</string>
+    <string name="title_activity_sign_in">Profile</string>
+    <string name="profile">Profile</string>
+    <string name="title_activity_my_chat">MyChatActivity</string>
+    <string name="message">Message…</string>
+    <string name="dummy_text">Lorem Ipsum is simply dummy text of the printing and
+        typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and scrambled it
+        to make a type specimen book.
+    </string>
+    <string name="buble_image">buble_image</string>
+    <string name="topic">Topic</string>
+    <string name="fullname">Fullname</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+    <string name="name">Joshua Mshana</string>
+    <string name="email_example_com">email@example.com</string>
+    <string name="subscription">Subscription</string>
+    <string name="type">Type</string>
+    <string name="free">Free</string>
+    <string name="update">Update Profile</string>
+    <string name="tsz_0">TZS 0</string>
+    <string name="status">Status</string>
+    <string name="expire">Account expire</string>
+    <string name="pay">Pay</string>
+    <string name="pay_history">Receipts</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="sigin_up_image">sigin up image</string>
+    <string name="term_and_conditions">Terms And Conditions</string>
+    <string name="agree_and_sign_in">Agree And Sign In</string>
+    <string name="title_activity_pay">PayActivity</string>
+    <string name="title_activity_receipts">ReceiptsActivity</string>
+    <string name="tzs">TZS</string>
+    <string name="tz">TZ</string>
+    <string name="_10000">0</string>
+    <string name="monthly">Monthly</string>
+    <string name="six_monthly">Six Month(50,000TZ)</string>
+    <string name="twelve_monthly">Year(100,000TZ)</string>
+    <string name="one_monthly">Month(10,000TZ)</string>
+    <string name="title_activity_forum_image_viwer">ForumImageViwer</string>
+</resources>

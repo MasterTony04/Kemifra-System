@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fahamutech.doctorappadmin">
+
+    <application
+        android:name="androidx.multidex.MultiDexApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.CategoryContent"
+            android:label="@string/title_activity_category_content"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.ReadActivity"
+            android:label="@string/title_activity_read"
+            android:parentActivityName=".activities.CategoryContent" />
+        <activity
+            android:name="com.fahamutech.doctorappadmin.forumadmin.ForumMainActivity"
+            android:parentActivityName=".activities.MainActivity" />
+        <!--<activity-->
+            <!--android:name=".activities.ImageActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
+            <!--android:label="@string/title_activity_image"-->
+            <!--android:theme="@style/FullscreenTheme"></activity>-->
+        <activity
+            android:name=".activities.SimpleImageViewer"
+            android:parentActivityName=".activities.MainActivity"
+            android:label="@string/title_activity_simple_image_viewer"
+            android:theme="@style/AppTheme"/>
+    </application>
+
+</manifest>

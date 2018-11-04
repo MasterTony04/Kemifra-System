@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.fahamutech.adminapp.forum.SignUpActivity"
+    android:background="@drawable/nathan"
+    tools:showIn="@layout/forum_activity_sign_up">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="24dp"
+        android:layout_gravity="center"
+        app:contentPadding="8dp"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/description"
+                android:src="@drawable/ic_action_user"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:text="@string/term_and_conditions"
+                android:textAlignment="center"
+                android:padding="4dp"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dummy_text"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content">
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/siginup_phone"
+                    android:hint="@string/phone"
+                    android:drawableLeft="@drawable/ic_forum_call"
+                    android:inputType="phone"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_forum_call" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content">
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/siginup_address"
+                    android:hint="@string/address"
+                    android:gravity="start"
+                    android:drawableLeft="@drawable/ic_forum_add_location"
+                    android:inputType="textMultiLine"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_forum_add_location" />
+            </android.support.design.widget.TextInputLayout>
+
+            <com.google.android.gms.common.SignInButton
+                android:layout_width="wrap_content"
+                android:id="@+id/siginup"
+                android:layout_gravity="center"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.v4.widget.NestedScrollView>
