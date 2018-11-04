@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,69 +8,42 @@
     tools:context=".activities.ReadActivity"
     tools:showIn="@layout/activity_read">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_margin="8dp"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
                 android:id="@+id/read_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
                 android:contentDescription="@string/description"
                 android:scaleType="centerCrop"
-                android:src="@drawable/martin_doc"/>
+                android:src="@drawable/martin_doc" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:padding="4dp"
                 android:id="@+id/read_title"
-                android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Headline"
-                android:textAlignment="center"
-                android:text="@string/title"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/title" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:text="@string/description"
                 android:id="@+id/read_content"
-                android:padding="4dp"
-                style="@style/TextAppearance.AppCompat.Body1"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_height="wrap_content">-->
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_margin="4dp"-->
-                    <!--android:clickable="true"-->
-                    <!--android:focusable="true"-->
-                    <!--android:id="@+id/read_like"-->
-                    <!--android:foreground="?selectableItemBackground"-->
-                    <!--android:src="@drawable/ic_favorite_black_24dp"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_margin="4dp"-->
-                    <!--android:clickable="true"-->
-                    <!--android:id="@+id/read_share"-->
-                    <!--android:focusable="true"-->
-                    <!--android:foreground="?selectableItemBackground"-->
-                    <!--android:src="@drawable/ic_share_black_24dp"-->
-                    <!--android:layout_height="wrap_content" />-->
-            <!--</LinearLayout>-->
+                android:padding="16dp"
+                android:text="@string/description" />
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>

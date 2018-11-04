@@ -18,7 +18,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/grey_500" />
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -89,6 +89,6 @@
                 android:text="@string/bottom_sheet_group_admin_panel_member_btn_cancel_label"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

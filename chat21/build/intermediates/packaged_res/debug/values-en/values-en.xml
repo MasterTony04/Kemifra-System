@@ -30,6 +30,7 @@
     <string name="activity_my_groups_list_error_title">No groups</string>
     <string name="activity_new_group_group_name_hint_label">Set a group name</string>
     <string name="activity_new_group_icon_label">Add\nphoto</string>
+    <string name="activity_public_profile_presence_not_available">Offline</string>
     <string name="activity_public_profile_presence_offline">Offline</string>
     <string name="activity_public_profile_presence_online">Online</string>
     <string name="add_members_activity_contact_already_added_label">Already added to the group</string>

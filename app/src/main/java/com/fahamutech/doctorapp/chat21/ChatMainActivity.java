@@ -2,9 +2,11 @@ package com.fahamutech.doctorapp.chat21;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,7 +37,7 @@ public class ChatMainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
-            supportActionBar.setTitle("Conservations");
+            supportActionBar.setTitle("Conversations");
             supportActionBar.setDisplayHomeAsUpEnabled(true);
         }
 
@@ -87,9 +89,6 @@ public class ChatMainActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.profile) {
             showProfile();
-            return true;
-        } else if (item.getItemId() == R.id.home) {
-            Log.e("Tag******", "Home is clicked");
             return true;
         } else return super.onOptionsItemSelected(item);
     }

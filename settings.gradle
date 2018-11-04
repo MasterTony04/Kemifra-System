@@ -1,2 +1,3 @@
-include ':admin' ,  ':chat21' , ':app' ,  ':chat21 admin'
-//
+include  ':chat21' , ':app'
+//,  ':chat21 admin'
+//':admin' ,

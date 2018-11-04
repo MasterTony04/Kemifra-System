@@ -1,9 +1,9 @@
 package com.fahamutech.doctorapp.adapter;
 
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.fahamutech.doctorapp.fragment.HomeArticlesFragment;
 import com.fahamutech.doctorapp.fragment.HomeTestimonyFragment;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +10,7 @@
     android:background="@drawable/nathan"
     tools:showIn="@layout/forum_activity_sign_up">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_margin="24dp"
         android:layout_gravity="center"
@@ -42,12 +42,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dummy_text"/>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_height="wrap_content">
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:id="@+id/siginup_phone"
                     android:hint="@string/phone"
@@ -55,14 +55,14 @@
                     android:inputType="phone"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_forum_call" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_height="wrap_content">
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:id="@+id/siginup_address"
                     android:hint="@string/address"
@@ -71,7 +71,7 @@
                     android:inputType="textMultiLine"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_forum_add_location" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.gms.common.SignInButton
                 android:layout_width="wrap_content"
@@ -82,6 +82,6 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>

@@ -1,8 +1,6 @@
 package org.chat21.android.ui.messages.adapters;
 
-import android.graphics.drawable.Drawable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +9,6 @@ import com.vanniktech.emoji.EmojiTextView;
 
 import org.chat21.android.R;
 import org.chat21.android.core.messages.models.Message;
-import org.chat21.android.utils.image.ImageUtils;
 
 /**
  * Created by stefano on 25/11/2016.

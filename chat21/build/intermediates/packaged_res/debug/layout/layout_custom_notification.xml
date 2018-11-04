@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/title"
-            style="@style/TextAppearance.AppCompat.Notification.Title"
+            style="@style/TextAppearance.Compat.Notification.Time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -38,7 +38,7 @@
 
         <TextView
             android:id="@+id/time"
-            style="@style/TextAppearance.AppCompat.Notification.Time"
+            style="@style/TextAppearance.Compat.Notification.Time"
             android:layout_width="100dp"
             android:layout_marginTop="2dp"
             android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
 
     <TextView
         android:id="@+id/text"
-        style="@style/TextAppearance.AppCompat.Notification.Info"
+        style="@style/TextAppearance.Compat.Notification.Info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/box_title"

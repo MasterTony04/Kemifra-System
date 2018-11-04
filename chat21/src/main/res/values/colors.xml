@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/blue_500</color>
-    <color name="colorPrimaryDark">@color/blue_700</color>
-    <color name="colorAccent">@color/pink_a_400</color>
+    <color name="colorPrimary">@color/primaryColor</color>
+    <color name="colorPrimaryDark">@color/primaryDarkColor</color>
+    <color name="colorAccent">@color/secondaryColor</color>
     <color name="windowBackground">@color/white</color>
+
+    <color name="primaryColor">#fafafa</color>
+    <color name="primaryLightColor">#ffffff</color>
+    <color name="primaryDarkColor">#c7c7c7</color>
+    <color name="secondaryColor">#f06292</color>
+    <color name="secondaryLightColor">#ff94c2</color>
+    <color name="secondaryDarkColor">#ba2d65</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
 
     <color name="error_view_text">@color/grey_400</color>
     <color name="error_view_text_light">@color/grey_600</color>

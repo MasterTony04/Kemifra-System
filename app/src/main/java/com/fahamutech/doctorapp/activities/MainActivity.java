@@ -2,19 +2,20 @@ package com.fahamutech.doctorapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.fahamutech.doctorapp.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
-import com.fahamutech.doctorapp.R;
 import com.fahamutech.doctorapp.adapter.HomePageFragmentAdapter;
 import com.fahamutech.doctorapp.chat21.ChatMainActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,10 +33,10 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
 
     @Override
     protected void onStart() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null) {
-            startActivity(new Intent(this, ChatLoginActivity.class));
-        }
+//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//        if (currentUser == null) {
+//            startActivity(new Intent(this, ChatLoginActivity.class));
+//        }
         super.onStart();
     }
 
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
         setContentView(R.layout.app_bar_main);
         bindView();
         setSupportActionBar(toolbar);
+        if (getSupportActionBar()!=null){
+            getSupportActionBar().setTitle("Kemifra PID");
+        }
 
         //billing
         billingProcessor = BillingProcessor
@@ -60,10 +64,10 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
 
     @Override
     protected void onResume() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null) {
-            startActivity(new Intent(this, ChatLoginActivity.class));
-        }
+//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//        if (currentUser == null) {
+//            startActivity(new Intent(this, ChatLoginActivity.class));
+//        }
         super.onResume();
     }
 
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     }
 
     private void bindView() {
-        toolbar = findViewById(R.id.toolbar);
+       toolbar = findViewById(R.id.toolbar);
         fab = findViewById(R.id.home_chat_fab);
         viewPager = findViewById(R.id.home_viewpager);
         tabLayout = findViewById(R.id.home_tab_layout);

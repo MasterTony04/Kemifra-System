@@ -31,6 +31,7 @@
     <string name="activity_new_group_group_name_hint_label">Dai un nome al gruppo</string>
     <string name="activity_new_group_icon_label">Aggiungi\nfoto</string>
     <string name="activity_public_profile_presence_not_available">Offline</string>
+    <string name="activity_public_profile_presence_offline">Offline</string>
     <string name="activity_public_profile_presence_online">Online</string>
     <string name="add_members_activity_contact_already_added_label">Già aggiunto al gruppo</string>
     <string name="add_members_activity_contact_not_added_label">Contatto non presente nella lista</string>

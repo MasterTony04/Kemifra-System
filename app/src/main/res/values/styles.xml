@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="ThemeOverlay.AppCompat.Dark">
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -15,12 +15,15 @@
     <!--<item name="windowNoTitle">true</item>-->
     <!--</style>-->
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Full" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
 
     <style name="FullscreenTheme" parent="AppTheme">
-        <item name="android:statusBarColor">#00ffffff</item>
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
@@ -28,7 +31,7 @@
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
 
-    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+    <style name="FullscreenActionBarStyle" parent="Widget.MaterialComponents.ActionBar.Surface">
         <item name="android:background">@color/black_overlay</item>
     </style>
 

@@ -85,6 +85,8 @@
     <!--activity_public_profile-->
     <string name="activity_public_profile_presence_online">Online</string>
     <string name="activity_public_profile_presence_offline">Offline</string>
+    <string name="activity_public_profile_presence_not_available" translatable="false">Offline</string>
+
 
     <!--activity_group_list-->
     <string name="activity_group_list_activity_title">My groups</string>
@@ -103,7 +105,7 @@
     <string name="activity_chat_login_signup_label">Sign up</string>
 
     <!--activity_choose_chat_group_activity-->
-    <string name="activity_choose_chat_group_activity_activity_title">Groups</string>
+    <string name="activity_choose_chat_group_activity_activity_title" translatable="false">Groups</string>
 
     <!--menu_fragment_conversations_list-->
     <string name="menu_fragment_conversations_list_action_archived">Archived</string>
@@ -114,6 +116,6 @@
     <!--row_archived_conversations-->
     <string name="row_archived_conversations_textview_reopen">Reopen</string>
     <string name="row_archived_conversations_closed_label">Closed</string>
-    <string name="title_activity_chat_reset_password_acticity">ChatResetPasswordActicity</string>
-    <string name="activity_chat_login_reset_label">Reset</string>
+    <string name="title_activity_chat_reset_password_acticity" translatable="false">ChatResetPasswordActicity</string>
+    <string name="activity_chat_login_reset_label" translatable="false">Reset</string>
 </resources>

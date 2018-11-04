@@ -2,19 +2,15 @@ package org.chat21.android.ui.conversations.fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.chat21.android.R;
 import org.chat21.android.core.ChatManager;
@@ -23,7 +19,6 @@ import org.chat21.android.core.conversations.listeners.ConversationsListener;
 import org.chat21.android.core.conversations.models.Conversation;
 import org.chat21.android.core.exception.ChatRuntimeException;
 import org.chat21.android.core.users.models.IChatUser;
-import org.chat21.android.utils.StringUtils;
 
 /**
  * Created by stefanodp91 on 28/09/17.

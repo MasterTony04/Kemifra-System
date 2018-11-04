@@ -68,9 +68,9 @@
         @color/colorPrimary
     </color>
     <color name="chat_signup_activity_chat_signup_button_signup_text_color">@color/white</color>
-    <color name="colorAccent">@color/pink_a_400</color>
-    <color name="colorPrimary">@color/blue_500</color>
-    <color name="colorPrimaryDark">@color/blue_700</color>
+    <color name="colorAccent">@color/secondaryColor</color>
+    <color name="colorPrimary">@color/primaryColor</color>
+    <color name="colorPrimaryDark">@color/primaryDarkColor</color>
     <color name="color_clickable_link_recipient">@color/black</color>
     <color name="color_clickable_link_sender">@color/black</color>
     <color name="color_clickable_link_system">@color/black</color>
@@ -226,6 +226,10 @@
     <color name="pink_a_200">#ff4081</color>
     <color name="pink_a_400">#f50057</color>
     <color name="pink_a_700">#c51162</color>
+    <color name="primaryColor">#fafafa</color>
+    <color name="primaryDarkColor">#c7c7c7</color>
+    <color name="primaryLightColor">#ffffff</color>
+    <color name="primaryTextColor">#000000</color>
     <color name="purple_100">#e1bee7</color>
     <color name="purple_200">#ce93d8</color>
     <color name="purple_300">#ba68c8</color>
@@ -254,6 +258,10 @@
     <color name="red_a_200">#ff5252</color>
     <color name="red_a_400">#ff1744</color>
     <color name="red_a_700">#d50000</color>
+    <color name="secondaryColor">#f06292</color>
+    <color name="secondaryDarkColor">#ba2d65</color>
+    <color name="secondaryLightColor">#ff94c2</color>
+    <color name="secondaryTextColor">#000000</color>
     <color name="teal_100">#b2dfdb</color>
     <color name="teal_200">#80cbc4</color>
     <color name="teal_300">#4db6ac</color>
@@ -410,9 +418,9 @@
     <string name="activity_add_member_to_chat_group_selected_contacts_title">Selected contacts</string>
     <string name="activity_archived_conversation_list_title">Archived</string>
     <string name="activity_chat_login_no_account_label">No account?</string>
-    <string name="activity_chat_login_reset_label">Reset</string>
+    <string name="activity_chat_login_reset_label" translatable="false">Reset</string>
     <string name="activity_chat_login_signup_label">Sign up</string>
-    <string name="activity_choose_chat_group_activity_activity_title">Groups</string>
+    <string name="activity_choose_chat_group_activity_activity_title" translatable="false">Groups</string>
     <string name="activity_contact_list_error_cannot_create_group_offline_label">You can not create the group if you are offline</string>
     <string name="activity_conversation_list_adapter_you_label">you</string>
     <string name="activity_group_admin_panel_add_member_title">Add member</string>
@@ -438,6 +446,7 @@
     <string name="activity_my_groups_list_error_title">No groups</string>
     <string name="activity_new_group_group_name_hint_label">Set a group name</string>
     <string name="activity_new_group_icon_label">Add\nphoto</string>
+    <string name="activity_public_profile_presence_not_available" translatable="false">Offline</string>
     <string name="activity_public_profile_presence_offline">Offline</string>
     <string name="activity_public_profile_presence_online">Online</string>
     <string name="add_members_activity_contact_already_added_label">Already added to the group</string>
@@ -501,23 +510,23 @@
     <string name="string_contact_list_activity_title">Contacts</string>
     <string name="string_conversation_list_activity_title">Conversations</string>
     <string name="string_create_group_activity_title">New Group</string>
-    <string name="title_activity_chat_reset_password_acticity">ChatResetPasswordActicity</string>
+    <string name="title_activity_chat_reset_password_acticity" translatable="false">ChatResetPasswordActicity</string>
     <string name="today">today</string>
     <string name="transition_user_profile_details" translatable="false">transition_user_profile_details</string>
     <string name="yesterday">yesterday</string>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.Button.Flat" parent="Theme.AppCompat.Light">
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
+    <style name="AppTheme.Button.Flat" parent="Theme.MaterialComponents.Light">
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
         <item name="colorControlHighlight">@color/grey_200</item>
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Dark"/>
     <style name="AppTheme.Toolbar.Expanded.Title" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">22dp</item>
     </style>
